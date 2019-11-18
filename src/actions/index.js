@@ -98,7 +98,7 @@ export function deleteData (deletedEntry){
     }
 };
 
-export function deleteData (newEntry){
+export function addData (newEntry){
 
     return function(dispatch){
         dispatch(requestLoading());
