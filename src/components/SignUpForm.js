@@ -4,17 +4,17 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 
-const UserForms = ({values, errors, touched, status}) => {
-    const [users, setUsers] = useState([]);
+const SignupForms = ({values, errors, touched, status}) => {
+    const [newUsers, setNewUsers] = useState([]);
 
     useEffect(() => {
-        status && setUsers(users => 
-            [...users, status]);
+        status && setNewUsers(newUsers => 
+            [...newUsers, status]);
     }, [status]);
 
     return (
-        <div className="user-form">
-            <h1>One Line a Day</h1>
+        <div className="signup-form">
+            <h2>Sign Up Today!</h2>
                 <Form>
                     <Field 
                         type="text"
@@ -48,9 +48,10 @@ const UserForms = ({values, errors, touched, status}) => {
                         <p className="errors">
                             {errors.password}</p>
                     )} 
-                    <button type="submit">Submit</button>
+                    <button type="submit">Sign Up</button>
+                    <p className="login">Already a Member? <a href="true">Login Here!</a></p> 
                 </Form>
-                {users.map(user => (
+                {newUsers.map(user => (
                     <ul key={user.id}>
                         <li>First Name: {user.firstname}</li>
                         <li>Last Name: {user.lastname}</li>
@@ -61,8 +62,8 @@ const UserForms = ({values, errors, touched, status}) => {
             </div>
         )
     }
-    
-    const FormikUserForms = withFormik({
+
+    const FormikSignupForms = withFormik({
         mapPropsToValues({firstname, lastname, email, password}){
             return {
                 firstname: firstname || "",
@@ -86,6 +87,6 @@ const UserForms = ({values, errors, touched, status}) => {
                 })
                 .catch(err => console.log(err.response));
             }
-        })(UserForms);
+        })(SignupForms);
 
-export default FormikUserForms;
+export default FormikSignupForms;
