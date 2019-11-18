@@ -1,22 +1,54 @@
 import {
-    FETCH_LOGIN_LOADING,
+    REQUEST_LOADING,
+    REQUEST_FAILED,
     FETCH_LOGIN_SUCCESS,
-    FETCH_LOGIN_FAILED
+    FETCH_DATA_SUCCESS,
+    DELETE_DATA_SUCCESS,
+    EDIT_DATA_SUCCESS
+
 } from "../actions"
 
 export const reducer = (state = initialState, action) =>{
     switch(action.type){
-        case FETCH_LOGIN_LOADING:
+        case REQUEST_LOADING:
             return {
                 ...state,
                 isFetching: true,
                 error: null
             };
-        case FETCH_LOGIN_FAILED: 
+        case REQUEST_FAILED: 
             return {
                 ...state,
                 isFetching: false,
                 error: action.payload
+            }
+        case FETCH_LOGIN_SUCCESS:
+            return{
+                ...state,
+                isFetching:false,
+                error: null,
+                username: action.payload
+            }
+        case FETCH_DATA_SUCCESS:
+            return{
+                ...state,
+                isFetching:false,
+                error: null,
+                journalEntryList: action.payload
+            }
+        case DELETE_DATA_SUCCESS:
+            return{
+                ...state,
+                isFetching:false,
+                error: null,
+                journalEntryList: action.payload
+            }
+        case EDIT_DATA_SUCCESS:
+            return{
+                ...state,
+                isFetching:false,
+                error: null,
+                journalEntryList: action.payload
             }
 
 
@@ -29,5 +61,9 @@ export const reducer = (state = initialState, action) =>{
 const initialState = {
     error: null,
     isFetching: false,
+    username: '',
+    journalEntryList: [],
+
+
 
 }
