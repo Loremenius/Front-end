@@ -1,5 +1,5 @@
 import axios from "axios";
-import axiosWithAuth from "./axiosWithAuth";
+import { axiosWithAuth } from "./axiosWithAuth";
 
 export const REQUEST_LOADING = "REQUEST_LOADING";
 export const REQUEST_FAILED = "REQUEST_FAILED";
