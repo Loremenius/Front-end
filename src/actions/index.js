@@ -8,6 +8,7 @@ export const FETCH_LOGIN_SUCCESS = "FETCH_LOGIN_SUCCESS";
 export const FETCH_DATA_SUCCESS = "FETCH_LOGIN_SUCCESS";
 export const DELETE_DATA_SUCCESS = "DELETE_DATA_SUCCESS";
 export const EDIT_DATA_SUCCESS = "EDIT_DATA_SUCCESS";
+export const ADD_DATA_SUCCESS = "ADD_DATA_SUCCESS";
 
 export const requestLoading = () =>({ type: REQUEST_LOADING });
 export const requestFailure = error => ({ 
@@ -31,12 +32,16 @@ export const editDataSuccess = data => ({
     type: EDIT_DATA_SUCCESS,
     payload: data
 });
+export const addDataSuccess = data => ({
+    type: ADD_DATA_SUCCESS,
+    payload: data
+});
 
 export function loginUser( credentials ){
 
     return function(dispatch){
         dispatch(requestLoading());
-        return axios.get('', credentials )
+        return axios.post('', credentials )
             .then((res) =>{
                 console.log(res);
                 sessionStorage.setItem("token", res.data)
@@ -86,6 +91,21 @@ export function deleteData (deletedEntry){
             .then((res)=>{
                 console.log(res);
                 dispatch(deleteDataSuccess(res.data));
+            })
+            .catch((error)=>{
+                dispatch(requestFailure(error));
+            })
+    }
+};
+
+export function deleteData (newEntry){
+
+    return function(dispatch){
+        dispatch(requestLoading());
+        return axiosWithAuth().post('', newEntry)
+            .then((res)=>{
+                console.log(res);
+                dispatch(addDataSuccess(res.data));
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
