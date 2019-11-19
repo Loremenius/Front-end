@@ -37,11 +37,11 @@ export const addDataSuccess = data => ({
     payload: data
 });
 
-export function loginUser( credentials ){
+export function loginUser( username , password ){
 
     return function(dispatch){
         dispatch(requestLoading());
-        return axios.post('', credentials )
+        return axios.post('https://lambdaschool-onelineaday.herokuapp.com/login', `grant_type=password&username=${username}&password=${password}`  )
             .then((res) =>{
                 console.log(res);
                 sessionStorage.setItem("token", res.data)
