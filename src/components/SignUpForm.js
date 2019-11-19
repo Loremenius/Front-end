@@ -5,12 +5,13 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 
-const SignupForms = ({values, errors, touched, status}) => {
+const SignupForms = ({values, errors, touched, status, history}) => {
     const [newUsers, setNewUsers] = useState([]);
 
     useEffect(() => {
-        status && setNewUsers(newUsers => 
-            [...newUsers, status]);
+        if( status === true){
+            history.push("/");
+        }
     }, [status]);
 
     return (
@@ -81,11 +82,15 @@ const SignupForms = ({values, errors, touched, status}) => {
             password: Yup.string().required('Required Field')
         }),
         handleSubmit(values, {setStatus}) {
+            const newUser = {
+                username: values.firstname,
+                primaryemail: values.email,
+                password: values.password
+            }
             axios
-                .post('', values)
+                .post('https://lambdaschool-onelineaday.herokuapp.com/createnewuser', newUser)
                 .then(res => {
-                    setStatus(res.data);
-                    console.log(res);
+                    setStatus(true);
                 })
                 .catch(err => console.log(err.response));
             }
