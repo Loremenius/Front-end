@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 
+
 const LoginForms = ({values, errors, touched, status})=> {
     const [users, setUsers] = useState([]);
 
@@ -34,7 +35,8 @@ const LoginForms = ({values, errors, touched, status})=> {
                     )}
                         <button type="submit">Submit</button>
                             <p className="signup">Not yet a member? 
-                    <Link to="/signup"> Signup Now!</Link></p>
+                    <Link to="/register"> Signup Now!</Link></p>
+
                 </Form>
                 {users.map(user => (
                     <ul key={user.id}>
