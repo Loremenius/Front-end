@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import { Route, Link } from "react-router-dom"
-// import FormikSignupForms from './components/SignUpForm';
-import FormikLoginForms from './components/LoginForm';
+import FormikSignupForms from './components/SignUpForm';
+// import FormikLoginForms from './components/LoginForm';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <Route path="/journal"/>
       <Route path="/register"/>
       <Route path="/journal/:id"/>
-      <FormikLoginForms />
+      <FormikSignupForms />
     </div>
   );
 }

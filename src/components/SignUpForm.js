@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {withFormik, Form, Field} from 'formik';
+import {Link} from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -48,8 +49,9 @@ const SignupForms = ({values, errors, touched, status}) => {
                         <p className="errors">
                             {errors.password}</p>
                     )} 
-                    <button type="submit">Sign Up</button>
-                    <p className="login">Already a Member? <a href="true">Login Here!</a></p> 
+                        <button type="submit">Sign Up</button>
+                        <p className="login">Already a Member?
+                    <Link to="/login"> Login Here!</Link></p>
                 </Form>
                 {newUsers.map(user => (
                     <ul key={user.id}>
