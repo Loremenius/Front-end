@@ -52,7 +52,7 @@ const SignupForms = ({values, errors, touched, status, history}) => {
                     )} 
                         <button type="submit">Sign Up</button>
                         <p className="login">Already a Member?
-                    <Link to="/login"> Login Here!</Link></p>
+                    <Link to="/"> Login Here!</Link></p>
                 </Form>
                 {newUsers.map(user => (
                     <ul key={user.id}>
