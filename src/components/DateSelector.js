@@ -18,7 +18,7 @@ export default function DatePickers() {
     const classes = dateStyles();
 
     return (
-        <form className={classes.container} noValidate>
+        <div className={classes.container} noValidate>
             <TextField
              id="date"
              label="Today's Date"
@@ -28,6 +28,6 @@ export default function DatePickers() {
              InputLabelProps={{
                  shrink: true,
              }}/>
-        </form>
+        </div>
     );
 }
