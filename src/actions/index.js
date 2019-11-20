@@ -5,7 +5,7 @@ export const REQUEST_LOADING = "REQUEST_LOADING";
 export const REQUEST_FAILED = "REQUEST_FAILED";
 
 export const FETCH_LOGIN_SUCCESS = "FETCH_LOGIN_SUCCESS";
-export const FETCH_DATA_SUCCESS = "FETCH_LOGIN_SUCCESS";
+export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
 export const DELETE_DATA_SUCCESS = "DELETE_DATA_SUCCESS";
 export const EDIT_DATA_SUCCESS = "EDIT_DATA_SUCCESS";
 export const ADD_DATA_SUCCESS = "ADD_DATA_SUCCESS";
@@ -37,27 +37,11 @@ export const addDataSuccess = data => ({
     payload: data
 });
 
-export function loginUser( username , password ){
-
-    return function(dispatch){
-        dispatch(requestLoading());
-        return axios.post('https://lambdaschool-onelineaday.herokuapp.com/login', `grant_type=password&username=${username}&password=${password}`  )
-            .then((res) =>{
-                console.log(res);
-                sessionStorage.setItem("token", res.data)
-                dispatch(loginLoadSuccess(res.data));
-            })
-            .catch((error)=>{
-                dispatch(requestFailure(error));
-            });
-    }
-};
-
 export function fetchData (){
 
     return function(dispatch){
         dispatch(requestLoading());
-        return axiosWithAuth().get('')
+        return axiosWithAuth().get('https://lambdaschool-onelineaday.herokuapp.com/entries/entries')
             .then((res)=>{
                 console.log(res);
                 dispatch(fetchDataSuccess(res.data));

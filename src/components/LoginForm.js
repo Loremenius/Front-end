@@ -29,13 +29,19 @@ const StyledTitle = styled.h2`
     margin-top: 5%;
 `;
 
+import { loginUser } from "../actions";
 
-const LoginForms = ({values, errors, touched, status})=> {
+
+
+
+
+const LoginForms = ({values, errors, touched, status,history})=> {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        status && setUsers(users => 
-            [...users, status]);
+        if(status===true){
+            history.push("/journal")
+        }
     }, [status]);
 
     return (
@@ -87,13 +93,18 @@ const LoginForms = ({values, errors, touched, status})=> {
             password: Yup.string().required('Required Field')
         }),
         handleSubmit(values, {setStatus}) {
-            axios
-                .post('', values)
-                .then(res => {
-                    setStatus(res.data);
+            axios.post('https://lambdaschool-onelineaday.herokuapp.com/login', `grant_type=password&username=${values.username}&password=${values.password}`,{
+                params:{}, 
+                headers:{"Authorization": "Basic bGFtYmRhLWNsaWVudDpsYW1iZGEtc2VjcmV0","Content-Type":"application/x-www-form-urlencoded"}
+            })
+                .then((res) =>{
                     console.log(res);
-                })
-                .catch(err => console.log(err.response));
+                    sessionStorage.setItem("token", res.data.access_token)
+                    setStatus(true);
+                    })
+                .catch((error)=>{
+                    console.log(error);
+                    });
         }
     })(LoginForms);
 
