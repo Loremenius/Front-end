@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { connect } from "react-redux";
 import {fetchData} from "../actions";
 import JournalEntry from "./JournalEntry"
+import EntryCard from "./EntryCard";
 
 const Journal = (props) =>{
 
@@ -14,10 +15,7 @@ const Journal = (props) =>{
         <div className="journal">
 
         {props.journalList.map((item)=>(
-            <div>
-                <p>{item.description}</p>
-                <p>{item.entrydate}</p>
-            </div>
+            <EntryCard key = {item.entryid} {...item}/>
         ))}
         <JournalEntry/>
         </div>

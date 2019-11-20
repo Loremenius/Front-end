@@ -56,7 +56,7 @@ export const reducer = (state = initialState, action) =>{
                 ...state,
                 isFetching:false,
                 error: null,
-                journalEntryList: [...state.journalEntryList, action.payload ]
+                journalEntryList: action.payload
             }
 
 

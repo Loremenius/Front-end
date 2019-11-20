@@ -99,11 +99,17 @@ export function addData (newEntry, history){
         return axiosWithAuth().post('https://lambdaschool-onelineaday.herokuapp.com/entries/entry', newEntry)
             .then((res)=>{
                 console.log(res);
-                dispatch(addDataSuccess(newEntry));
+                return axiosWithAuth().get('https://lambdaschool-onelineaday.herokuapp.com/entries/entries')
+                .then((res)=>{
+                    console.log(res);
+                    dispatch(addDataSuccess(res.data));
+                })
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
-                if(error.response.data.error === "invalid_token"){
+                if (error.message){
+
+                }else if(error.response.data.error === "invalid_token"){
                     history.push("/");
                 }
             })
