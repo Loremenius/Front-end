@@ -92,14 +92,13 @@ const SignupForms = ({values, errors, touched, status, history}) => {
             };
         },
         validationSchema: Yup.object().shape({
-            firstname: Yup.string().required('Required Field'),
-            lastname: Yup.string().required('Required Field'),
+            username: Yup.string().required('Required Field'),
             email: Yup.string().required('Required Field'),
             password: Yup.string().required('Required Field')
         }),
         handleSubmit(values, {setStatus}) {
             const newUser = {
-                username: values.firstname,
+                username: values.username,
                 primaryemail: values.email,
                 password: values.password
             }
