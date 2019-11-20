@@ -3,7 +3,31 @@ import {withFormik, Form, Field} from 'formik';
 import {Link} from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
-// import {makeStyles} from '@material-ui/styles';
+// import { makeStyles } from '@material-ui/styles';
+import styled from 'styled-components';
+
+const Button = styled.button`
+    // display: inline-block;
+    color: white;
+    font-size: 1em;
+    margin: 1em;
+    padding: 0.5em 1em;
+    border: 2px solid #717171;
+    border-radius: 5px;
+    background: #11A2FC;
+    width: 200px;
+`;
+const LoginStyles = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 20px 0;
+    width: 100%;
+`;
+const StyledTitle = styled.h2`
+    font-size: 2rem;
+    margin-top: 5%;
+`;
 
 
 const LoginForms = ({values, errors, touched, status})=> {
@@ -15,8 +39,10 @@ const LoginForms = ({values, errors, touched, status})=> {
     }, [status]);
 
     return (
+        
         <div className="login-form">
-            <h2>Login</h2>
+            <StyledTitle>Login</StyledTitle>
+            <LoginStyles>
                 <Form>
                     <Field 
                         type="text"
@@ -33,11 +59,12 @@ const LoginForms = ({values, errors, touched, status})=> {
                         <p className="errors">
                             {errors.password}</p>
                     )}
-                        <button type="submit">Submit</button>
+                        <Button type="submit">Submit</Button>
                             <p className="signup">Not yet a member? 
                     <Link to="/register"> Signup Now!</Link></p>
-
+                        
                 </Form>
+                </LoginStyles>
                 {users.map(user => (
                     <ul key={user.id}>
                         <li>Username: {user.username}</li>
@@ -45,6 +72,7 @@ const LoginForms = ({values, errors, touched, status})=> {
                     </ul>
                 ))}
         </div>
+       
     )
 }
     const FormikLoginForms = withFormik({

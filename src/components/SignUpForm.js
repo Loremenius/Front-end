@@ -3,6 +3,30 @@ import {withFormik, Form, Field} from 'formik';
 import {Link} from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const Button = styled.button`
+    // display: inline-block;
+    color: white;
+    font-size: 1em;
+    margin: 1em;
+    padding: 0.5em 1em;
+    border: 2px solid #717171;
+    border-radius: 5px;
+    background: #11A2FC;
+    width: 200px;
+`;
+const SignUpStyles = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 20px 0;
+    width: 100%;
+`;
+const StyledTitle = styled.h2`
+    font-size: 2rem;
+    margin-top: 5%;
+`;
 
 
 const SignupForms = ({values, errors, touched, status, history}) => {
@@ -16,23 +40,16 @@ const SignupForms = ({values, errors, touched, status, history}) => {
 
     return (
         <div className="signup-form">
-            <h2>Sign Up Today!</h2>
+            <StyledTitle>Sign Up Today!</StyledTitle>
+            <SignUpStyles>
                 <Form>
                     <Field 
                         type="text"
-                        name="firstname"
-                        placeholder="First Name" />
-                    {touched.firstname && errors.firstname && (
+                        name="username"
+                        placeholder="Username" />
+                    {touched.username && errors.username && (
                         <p className="errors">
-                            {errors.firstname}</p>
-                        )}
-                        <Field 
-                        type="text"
-                        name="lastname"
-                        placeholder="Last Name" />
-                    {touched.lastname && errors.lastname && (
-                        <p className="errors">
-                            {errors.lastname}</p>
+                            {errors.username}</p>
                         )}
                     <Field 
                         type="text"
@@ -50,14 +67,14 @@ const SignupForms = ({values, errors, touched, status, history}) => {
                         <p className="errors">
                             {errors.password}</p>
                     )} 
-                        <button type="submit">Sign Up</button>
+                        <Button type="submit">Sign Up</Button>
                         <p className="login">Already a Member?
                     <Link to="/login"> Login Here!</Link></p>
                 </Form>
+                </SignUpStyles>
                 {newUsers.map(user => (
                     <ul key={user.id}>
-                        <li>First Name: {user.firstname}</li>
-                        <li>Last Name: {user.lastname}</li>
+                        <li>Username: {user.username}</li>
                         <li>Email: {user.email}</li>
                         <li>Password: {user.password}</li>
                     </ul>
@@ -67,10 +84,9 @@ const SignupForms = ({values, errors, touched, status, history}) => {
     }
 
     const FormikSignupForms = withFormik({
-        mapPropsToValues({firstname, lastname, email, password}){
+        mapPropsToValues({username, email, password}){
             return {
-                firstname: firstname || "",
-                lastname: lastname || "",
+                username: username || "",
                 email: email || "",
                 password: password || ""
             };
