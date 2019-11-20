@@ -17,7 +17,7 @@ function App() {
       
       <Route exact path="/" component={FormikLoginForms}/>
       <PrivateRoute exact path="/journal">
-            <Journal />
+            <Route exact path="/journal" component ={Journal}/>
       </PrivateRoute>
       <Route path="/register" component={FormikSignupForms}/>
       <Route path="/journal/:id"/>

@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import DateSelector from './DateSelector';
 import {makeStyles} from '@material-ui/styles';
+import {connect} from "react-redux";
+import {addData} from "../actions"
 
 const mainStyles = makeStyles({
     root: {
@@ -21,7 +23,7 @@ const JournalEntry = props => {
     }
     const submitForm = e => {
         e.preventDefault()
-        props.addNewEntry(journal)
+        console.log(journal);
         setJournal({title: "", body: ""})
     }
 
@@ -45,4 +47,4 @@ const JournalEntry = props => {
         </div>
     )
 }
-export default JournalEntry;
+export default connect(null,{addData})(JournalEntry);

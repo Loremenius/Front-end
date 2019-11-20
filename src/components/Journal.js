@@ -1,18 +1,25 @@
 import React, {useEffect} from "react";
 import { connect } from "react-redux";
 import {fetchData} from "../actions";
-
+import JournalEntry from "./JournalEntry"
 
 const Journal = (props) =>{
 
     useEffect(()=>{
-        props.fetchData();
+        console.log(props)
+        props.fetchData(props.history);
     },[])
 
     return(
         <div className="journal">
 
-
+        {props.journalList.map((item)=>(
+            <div>
+                <p>{item.description}</p>
+                <p>{item.entrydate}</p>
+            </div>
+        ))}
+        <JournalEntry/>
         </div>
     )
 }

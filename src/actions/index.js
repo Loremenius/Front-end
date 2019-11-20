@@ -37,7 +37,7 @@ export const addDataSuccess = data => ({
     payload: data
 });
 
-export function fetchData (){
+export function fetchData (history){
 
     return function(dispatch){
         dispatch(requestLoading());
@@ -48,11 +48,14 @@ export function fetchData (){
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
+                if(error.response.data.error === "invalid_token"){
+                    history.push("/");
+                }
             })
     }
 };
 
-export function editData (editedEntry){
+export function editData (editedEntry, history ){
 
     return function(dispatch){
         dispatch(requestLoading());
@@ -60,14 +63,18 @@ export function editData (editedEntry){
             .then((res)=>{
                 console.log(res);
                 dispatch(editDataSuccess(res.data));
+                history.push("/journal")
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
+                if(error.response.data.error === "invalid_token"){
+                    history.push("/");
+                }
             })
     }
 };
 
-export function deleteData (deletedEntry){
+export function deleteData (deletedEntry, history){
 
     return function(dispatch){
         dispatch(requestLoading());
@@ -78,21 +85,27 @@ export function deleteData (deletedEntry){
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
+                if(error.response.data.error === "invalid_token"){
+                    history.push("/");
+                }
             })
     }
 };
 
-export function addData (newEntry){
+export function addData (newEntry, history){
 
     return function(dispatch){
         dispatch(requestLoading());
-        return axiosWithAuth().post('', newEntry)
+        return axiosWithAuth().post('https://lambdaschool-onelineaday.herokuapp.com/entries/entry', newEntry)
             .then((res)=>{
                 console.log(res);
-                dispatch(addDataSuccess(res.data));
+                dispatch(addDataSuccess(newEntry));
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
+                if(error.response.data.error === "invalid_token"){
+                    history.push("/");
+                }
             })
     }
 };
