@@ -41,15 +41,13 @@ export const reducer = (state = initialState, action) =>{
             return{
                 ...state,
                 isFetching:false,
-                error: null,
-                journalEntryList: action.payload
+                error: null
             }
         case EDIT_DATA_SUCCESS:
             return{
                 ...state,
                 isFetching:false,
-                error: null,
-                journalEntryList: action.payload
+                error: null
             }
         case ADD_DATA_SUCCESS:
             return{
