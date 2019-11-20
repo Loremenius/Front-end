@@ -1,8 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { connect } from "react-redux";
+import {fetchData} from "../actions";
 
 
-const Journal = () =>{
+const Journal = (props) =>{
+
+    useEffect(()=>{
+        props.fetchData();
+    },[])
 
     return(
         <div className="journal">
@@ -18,4 +23,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps,{})(Journal);
+export default connect(mapStateToProps,{fetchData})(Journal);
