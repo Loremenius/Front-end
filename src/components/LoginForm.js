@@ -5,18 +5,9 @@ import * as Yup from 'yup';
 import axios from 'axios';
 // import { makeStyles } from '@material-ui/styles';
 import styled from 'styled-components';
+import Button from "@material-ui/core/Button";
 
-const Button = styled.button`
-    // display: inline-block;
-    color: white;
-    font-size: 1em;
-    margin: 1em;
-    padding: 0.5em 1em;
-    border: 2px solid #717171;
-    border-radius: 5px;
-    background: #11A2FC;
-    width: 200px;
-`;
+
 const LoginStyles = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -65,7 +56,7 @@ const LoginForms = ({values, errors, touched, status,history})=> {
                         <p className="errors">
                             {errors.password}</p>
                     )}
-                        <Button type="submit">Submit</Button>
+                        <Button variant="outlined" type="submit">Submit</Button>
                             <p className="signup">Not yet a member? 
                     <Link to="/register"> Signup Now!</Link></p>
                         

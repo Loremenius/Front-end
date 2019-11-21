@@ -9,6 +9,7 @@ export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
 export const DELETE_DATA_SUCCESS = "DELETE_DATA_SUCCESS";
 export const EDIT_DATA_SUCCESS = "EDIT_DATA_SUCCESS";
 export const ADD_DATA_SUCCESS = "ADD_DATA_SUCCESS";
+export const SIGN_USER_OUT = "SIGN_USER_OUT";
 
 export const requestLoading = () =>({ type: REQUEST_LOADING });
 export const requestFailure = error => ({ 
@@ -30,6 +31,16 @@ export const addDataSuccess = data => ({
     type: ADD_DATA_SUCCESS,
     payload: data
 });
+export const signUserOut = () => ({type: SIGN_USER_OUT});
+
+export function signOut(history){
+
+    return function(dispatch){
+        dispatch(signUserOut());
+        sessionStorage.clear();
+        history.push("/");
+    }
+}
 
 export function fetchData (history){
 
@@ -38,13 +49,12 @@ export function fetchData (history){
         return axiosWithAuth().get('https://lambdaschool-onelineaday.herokuapp.com/entries/entries')
             .then((res)=>{
                 console.log(res);
-                dispatch(fetchDataSuccess(res.data));
+                const orderedArray = res.data.sort((a, b) => new Date(b.entrydate) - new Date(a.entrydate));
+                dispatch(fetchDataSuccess(orderedArray));
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
-                if (error.message){
-
-                }else if(error.response.data.error === "invalid_token"){
+                if (error.message === "Request failed with status code 401"){
                     history.push("/");
                 }
             })
@@ -63,9 +73,7 @@ export function editData (editedEntry, history, id ){
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
-                if (error.message){
-
-                }else if(error.response.data.error === "invalid_token"){
+                if (error.message === "Request failed with status code 401"){
                     history.push("/");
                 }
             })
@@ -84,9 +92,7 @@ export function deleteData (deletedEntryid, history){
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
-                if (error.message){
-
-                }else if(error.response.data.error === "invalid_token"){
+                if (error.message === "Request failed with status code 401"){
                     history.push("/");
                 }
             })
@@ -103,14 +109,13 @@ export function addData (newEntry, history){
                 return axiosWithAuth().get('https://lambdaschool-onelineaday.herokuapp.com/entries/entries')
                 .then((res)=>{
                     console.log(res);
-                    dispatch(addDataSuccess(res.data));
+                    const orderedArray = res.data.sort((a, b) => new Date(b.entrydate) - new Date(a.entrydate));
+                    dispatch(addDataSuccess(orderedArray));
                 })
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
-                if (error.message){
-
-                }else if(error.response.data.error === "invalid_token"){
+                if (error.message === "Request failed with status code 401"){
                     history.push("/");
                 }
             })

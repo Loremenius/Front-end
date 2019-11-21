@@ -1,25 +1,20 @@
+body{
+  
+  display:flex;
+  justify-content: center;
+
+}
+
+
 .App {
   text-align: center;
+  border: 1px solid grey;
+  align-content: center;
+  width:500px;
+  border-radius: 10px;
+  background: 	#DCDCDC;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
-}
 form {
   display: flex;
   flex-flow: column nowrap;
@@ -35,18 +30,98 @@ input {
   font-size: 1rem;
 }
 
-#root > div > div {
-  border: 1px solid grey;
-  margin: 60px 200px;
-  border-radius: 10px;
-  background: 	#DCDCDC;
-}
+
 
 #root > div > div {
     -webkit-box-shadow: 0 10px 6px -6px #777;
     -moz-box-shadow: 0 10px 6px -6px #777;
       box-shadow: 0 10px 6px -6px #777;
 } 
-a {
-  color: purple;
+
+.journal a:link, a:visited {
+  color:black;
+  text-decoration: none;
+  
+}
+
+.left-align{
+  align-self: flex-start;
+  
+}
+
+.left-align .entry{
+  border-radius: 30px 30px 30px 3px;
+}
+
+.left-align .date{
+  text-align: start;
+  padding-left: 10px;
+}
+
+
+.right-align{
+  align-self: flex-end;
+  
+}
+
+.right-align .date{
+  text-align: end;
+  padding-right: 10px;
+}
+
+.right-align .entry{
+  border-radius: 30px 30px 3px 30px;
+}
+
+.list {
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  border-top: solid 1px black;
+  padding-top: 10px;
+  
+}
+
+.entry{
+  padding: 5px;
+  margin: 5px;
+  width: 15rem;
+  background-color: #11A2FC;
+}
+
+.date{
+  font-size: 10px;
+}
+
+.form{
+  padding:15px;
+  
+}
+
+.inputs{
+  display: flex;
+  justify-content: space-around; 
+}
+
+.begin{
+  border-top: solid 1px black;
+  padding-top: 10px;
+  width:90%;
+  align-self: center;
+}
+
+.MuiButton-label{
+  font-size: 10px;
+}
+
+.MuiFormControl-root{
+  width: 60%;
+  font-size: 15px;
+}
+
+.signOut{
+  padding:5px;
+  display: flex;
+  justify-content: end;
+  align-items: flex-end;
 }

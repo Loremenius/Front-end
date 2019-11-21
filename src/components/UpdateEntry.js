@@ -5,14 +5,18 @@ import {editData, deleteData} from "../actions"
 import DateFnsUtils from '@date-io/date-fns';
 import {  MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 import {axiosWithAuth} from "../actions/axiosWithAuth";
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import TextField from "@material-ui/core/TextField";
+import DeleteIcon from "@material-ui/icons/Delete";
+import SaveIcon from '@material-ui/icons/Save';
+
+
 
 const mainStyles = makeStyles({
     root: {
         padding: '30px',
-        '& label': {
-            color: 'blue',
-            fontSize: '1.4rem',
-    },
+
 }})
 
 
@@ -33,7 +37,8 @@ const UpdateEntry = props => {
     const submitForm = e => {
         e.preventDefault()
         console.log(props)
-        const journal = {entrydate: selectedDate, description: entry};
+        const convertSelectedDate = new Date(selectedDate)
+        const journal = {entrydate:  `${convertSelectedDate.getFullYear()}-${convertSelectedDate.getMonth()+1}-${convertSelectedDate.getDate()}`, description: entry};
         props.editData(journal, props.history, props.match.params.id);
     }
 
@@ -73,16 +78,27 @@ const UpdateEntry = props => {
                                 }}
                             />
                         </MuiPickersUtilsProvider>
-                        <input
+                        <br></br>
+                        <TextField
                             id="note"
                             type="body"
+                            multiline
                             value={entry}
+                            label="Edit journal entry"
                             onChange={handleChanges}
                             name="body"
                             className={classes.input}/>
-                    <button type="submit">Edit Entry</button>
+                            <br></br>
+                        <ButtonGroup
+                            size="large"
+                            aria-label="large outlined secondary button group"
+                            >
+                            <Button type="submit" startIcon={<SaveIcon/>}>Edit Entry</Button>
+                            <Button onClick={onClickEvent} startIcon={<DeleteIcon/>}>Delete</Button>
+                            <Button onClick={()=>{props.history.push("/journal")}}>Cancel</Button>
+                        </ButtonGroup>
             </form>
-                    <button onClick={onClickEvent} >Delete Entry</button>
+                    
         </div>
     )
 }

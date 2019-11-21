@@ -5,7 +5,8 @@ import {
     FETCH_DATA_SUCCESS,
     DELETE_DATA_SUCCESS,
     EDIT_DATA_SUCCESS,
-    ADD_DATA_SUCCESS
+    ADD_DATA_SUCCESS,
+    SIGN_USER_OUT
 
 } from "../actions"
 
@@ -55,6 +56,13 @@ export const reducer = (state = initialState, action) =>{
                 isFetching:false,
                 error: null,
                 journalEntryList: action.payload
+            }
+        case SIGN_USER_OUT:
+            return{
+                error: null,
+                isFetching: false,
+                username: '',
+                journalEntryList: [],
             }
 
 

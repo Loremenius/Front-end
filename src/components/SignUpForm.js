@@ -4,18 +4,9 @@ import {Link} from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from 'axios';
 import styled from 'styled-components';
+import Button from "@material-ui/core/Button";
 
-const Button = styled.button`
-    // display: inline-block;
-    color: white;
-    font-size: 1em;
-    margin: 1em;
-    padding: 0.5em 1em;
-    border: 2px solid #717171;
-    border-radius: 5px;
-    background: #11A2FC;
-    width: 200px;
-`;
+
 const SignUpStyles = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -67,7 +58,7 @@ const SignupForms = ({values, errors, touched, status, history}) => {
                         <p className="errors">
                             {errors.password}</p>
                     )} 
-                        <Button type="submit">Sign Up</Button>
+                        <Button variant="outlined" type="submit">Sign Up</Button>
                         <p className="login">Already a Member?
                     <Link to="/"> Login Here!</Link></p>
                 </Form>

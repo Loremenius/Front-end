@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import {addData} from "../actions"
 import DateFnsUtils from '@date-io/date-fns';
 import {  MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
+import Button from '@material-ui/core/Button';
+import TextField from "@material-ui/core/TextField";
 
 const mainStyles = makeStyles({
     root: {
@@ -29,8 +31,9 @@ const JournalEntry = props => {
     };
 
     const submitForm = e => {
-        e.preventDefault()
-        const journal = {entrydate: selectedDate, description: entry};
+        e.preventDefault();
+        const convertSelectedDate = new Date(selectedDate)
+        const journal = {entrydate:  `${convertSelectedDate.getFullYear()}-${convertSelectedDate.getMonth()+1}-${convertSelectedDate.getDate()}`, description: entry};
         props.addData(journal,props.histroy);
         setEntry("");
         setSelectedDate(new Date());
@@ -39,34 +42,39 @@ const JournalEntry = props => {
     const classes = mainStyles(); 
 
     return (
-        <div className={classes.root}>
-            <form onSubmit={submitForm}>
+        <div className="root">
+            <form onSubmit={submitForm} className="form">
                 <label htmlFor="note">
                     Journal Entry of the Day
                         </label>
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <KeyboardDatePicker
-                                disableToolbar
-                                variant="inline"
-                                format="MM/dd/yyyy"
-                                margin="normal"
-                                id="date-picker-inline"
-                                label="Today's Date"
-                                value={selectedDate}
-                                onChange={handleDateChange}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change date',
-                                }}
-                            />
-                        </MuiPickersUtilsProvider>
-                        <input
-                            id="note"
-                            type="body"
-                            value={entry}
-                            onChange={handleChanges}
-                            name="body"
-                            className={classes.input}/>
-                    <button type="submit">Add New Entry</button>
+                        
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker
+                                    disableToolbar
+                                    variant="inline"
+                                    format="MM/dd/yyyy"
+                                    margin="normal"
+                                    id="date-picker-inline"
+                                    label="Today's Date"
+                                    value={selectedDate}
+                                    onChange={handleDateChange}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                />
+                            </MuiPickersUtilsProvider>
+                            <TextField
+                                id="note"
+                                multiline
+                                type="body"
+                                label="New Journal Entry"
+                                value={entry}
+                                onChange={handleChanges}
+                                name="body"
+                                className={classes.input}/>
+                                <br></br>
+                       
+                    <Button variant="outlined" type="submit">Add New Entry</Button>
             </form>
         </div>
     )
