@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Route, Link } from "react-router-dom"
+
+import JournalEntry from './components/JournalEntry';
+
+import FormikLoginForms from './components/LoginForm';
+import FormikSignupForms from './components/SignUpForm';
+import PrivateRoute from "./components/PrivateRoute";
+import Journal from "./components/Journal"
+import UpdateEntry from "./components/UpdateEntry";
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      
+      <Route exact path="/" component={FormikLoginForms}/>
+      <PrivateRoute exact path="/journal">
+            <Route exact path="/journal" component ={Journal}/>
+      </PrivateRoute>
+      <Route path="/register" component={FormikSignupForms}/>
+      <Route path="/journal/:id" component={UpdateEntry}/>
     </div>
   );
 }
