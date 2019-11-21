@@ -24,14 +24,8 @@ export const fetchDataSuccess = data => ({
     type: FETCH_DATA_SUCCESS,
     payload: data
 });
-export const deleteDataSuccess = data => ({
-    type: DELETE_DATA_SUCCESS,
-    payload: data
-});
-export const editDataSuccess = data => ({
-    type: EDIT_DATA_SUCCESS,
-    payload: data
-});
+export const deleteDataSuccess = () => ({ type: DELETE_DATA_SUCCESS });
+export const editDataSuccess = () => ({type: EDIT_DATA_SUCCESS});
 export const addDataSuccess = data => ({
     type: ADD_DATA_SUCCESS,
     payload: data
@@ -48,44 +42,51 @@ export function fetchData (history){
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
-                if(error.response.data.error === "invalid_token"){
+                if (error.message){
+
+                }else if(error.response.data.error === "invalid_token"){
                     history.push("/");
                 }
             })
     }
 };
 
-export function editData (editedEntry, history ){
+export function editData (editedEntry, history, id ){
 
     return function(dispatch){
         dispatch(requestLoading());
-        return axiosWithAuth().put('', editedEntry)
+        return axiosWithAuth().put(`https://lambdaschool-onelineaday.herokuapp.com/entries/entry/${id}`, editedEntry)
             .then((res)=>{
                 console.log(res);
-                dispatch(editDataSuccess(res.data));
+                dispatch(editDataSuccess());
                 history.push("/journal")
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
-                if(error.response.data.error === "invalid_token"){
+                if (error.message){
+
+                }else if(error.response.data.error === "invalid_token"){
                     history.push("/");
                 }
             })
     }
 };
 
-export function deleteData (deletedEntry, history){
+export function deleteData (deletedEntryid, history){
 
     return function(dispatch){
         dispatch(requestLoading());
-        return axiosWithAuth().delete('', deletedEntry)
+        return axiosWithAuth().delete(`https://lambdaschool-onelineaday.herokuapp.com/entries/entry/${deletedEntryid}`)
             .then((res)=>{
                 console.log(res);
-                dispatch(deleteDataSuccess(res.data));
+                dispatch(deleteDataSuccess());
+                history.push("/journal");
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
-                if(error.response.data.error === "invalid_token"){
+                if (error.message){
+
+                }else if(error.response.data.error === "invalid_token"){
                     history.push("/");
                 }
             })
@@ -99,11 +100,17 @@ export function addData (newEntry, history){
         return axiosWithAuth().post('https://lambdaschool-onelineaday.herokuapp.com/entries/entry', newEntry)
             .then((res)=>{
                 console.log(res);
-                dispatch(addDataSuccess(newEntry));
+                return axiosWithAuth().get('https://lambdaschool-onelineaday.herokuapp.com/entries/entries')
+                .then((res)=>{
+                    console.log(res);
+                    dispatch(addDataSuccess(res.data));
+                })
             })
             .catch((error)=>{
                 dispatch(requestFailure(error));
-                if(error.response.data.error === "invalid_token"){
+                if (error.message){
+
+                }else if(error.response.data.error === "invalid_token"){
                     history.push("/");
                 }
             })

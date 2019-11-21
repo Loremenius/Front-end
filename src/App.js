@@ -8,6 +8,7 @@ import FormikLoginForms from './components/LoginForm';
 import FormikSignupForms from './components/SignUpForm';
 import PrivateRoute from "./components/PrivateRoute";
 import Journal from "./components/Journal"
+import UpdateEntry from "./components/UpdateEntry";
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
             <Route exact path="/journal" component ={Journal}/>
       </PrivateRoute>
       <Route path="/register" component={FormikSignupForms}/>
-      <Route path="/journal/:id"/>
+      <Route path="/journal/:id" component={UpdateEntry}/>
     </div>
   );
 }

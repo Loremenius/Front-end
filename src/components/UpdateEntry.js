@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {makeStyles} from '@material-ui/styles';
 import {connect} from "react-redux";
-import {addData} from "../actions"
+import {editData, deleteData} from "../actions"
 import DateFnsUtils from '@date-io/date-fns';
 import {  MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
+import {axiosWithAuth} from "../actions/axiosWithAuth";
 
 const mainStyles = makeStyles({
     root: {
@@ -15,13 +16,14 @@ const mainStyles = makeStyles({
 }})
 
 
-const JournalEntry = props => {
+const UpdateEntry = props => {
+
     const [entry, setEntry] = useState("");
   
     const handleChanges = e => {
         setEntry(e.target.value);
     }
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState();
 
     const handleDateChange = date => {
         console.log(date)
@@ -30,13 +32,25 @@ const JournalEntry = props => {
 
     const submitForm = e => {
         e.preventDefault()
+        console.log(props)
         const journal = {entrydate: selectedDate, description: entry};
-        props.addData(journal,props.histroy);
-        setEntry("");
-        setSelectedDate(new Date());
+        props.editData(journal, props.history, props.match.params.id);
+    }
+
+    const onClickEvent = () =>{
+        props.deleteData(props.match.params.id, props.history);
     }
 
     const classes = mainStyles(); 
+
+    useEffect(()=>{
+        axiosWithAuth().get(`https://lambdaschool-onelineaday.herokuapp.com/entries/entry/${props.match.params.id}`)
+            .then((response)=>{
+                console.log(response);
+                setSelectedDate(response.data.entrydate);
+                setEntry(response.data.description);
+            });
+    },[props.match.params.id])
 
     return (
         <div className={classes.root}>
@@ -66,9 +80,10 @@ const JournalEntry = props => {
                             onChange={handleChanges}
                             name="body"
                             className={classes.input}/>
-                    <button type="submit">Add New Entry</button>
+                    <button type="submit">Edit Entry</button>
             </form>
+                    <button onClick={onClickEvent} >Delete Entry</button>
         </div>
     )
 }
-export default connect(null,{addData})(JournalEntry);
+export default connect(null,{editData, deleteData})(UpdateEntry);
