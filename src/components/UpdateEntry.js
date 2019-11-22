@@ -73,6 +73,8 @@ const UpdateEntry = props => {
                                 label="Today's Date"
                                 value={selectedDate}
                                 onChange={handleDateChange}
+                                inputProps={{style: {fontSize: 30, paddingTop:'15px'}}} // font size of input text
+                                InputLabelProps={{style: {fontSize: 40}}} // font size of input label
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
@@ -86,6 +88,8 @@ const UpdateEntry = props => {
                             value={entry}
                             label="Edit journal entry"
                             onChange={handleChanges}
+                            inputProps={{style: {fontSize: 30, paddingTop:'15px'}}} // font size of input text
+                            InputLabelProps={{style: {fontSize: 40}}} // font size of input label
                             name="body"
                             className={classes.input}/>
                             <br></br>

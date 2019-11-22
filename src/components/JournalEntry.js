@@ -14,6 +14,9 @@ const mainStyles = makeStyles({
             color: 'blue',
             fontSize: '1.4rem',
     },
+    resize:{
+        fontSize:25
+    }
 }})
 
 
@@ -50,6 +53,7 @@ const JournalEntry = props => {
                         
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <KeyboardDatePicker
+                                    className={classes.resize}
                                     disableToolbar
                                     variant="inline"
                                     format="MM/dd/yyyy"
@@ -58,6 +62,8 @@ const JournalEntry = props => {
                                     label="Today's Date"
                                     value={selectedDate}
                                     onChange={handleDateChange}
+                                    inputProps={{style: {fontSize: 30, paddingTop:'15px'}}} // font size of input text
+                                    InputLabelProps={{style: {fontSize: 40}}} // font size of input label
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
                                     }}
@@ -70,6 +76,8 @@ const JournalEntry = props => {
                                 label="New Journal Entry"
                                 value={entry}
                                 onChange={handleChanges}
+                                inputProps={{style: {fontSize: 30, paddingTop:'15px'}}} // font size of input text
+                                InputLabelProps={{style: {fontSize: 40}}} // font size of input label
                                 name="body"
                                 className={classes.input}/>
                                 <br></br>

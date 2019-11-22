@@ -2,7 +2,7 @@ body{
   
   display:flex;
   justify-content: center;
-
+  font-size: 2rem;
 }
 
 
@@ -10,7 +10,7 @@ body{
   text-align: center;
   border: 1px solid grey;
   align-content: center;
-  width:500px;
+  width:1000px;
   border-radius: 10px;
   background: 	#DCDCDC;
 }
@@ -85,12 +85,12 @@ input {
 .entry{
   padding: 5px;
   margin: 5px;
-  width: 15rem;
+  width: 25rem;
   background-color: #11A2FC;
 }
 
 .date{
-  font-size: 10px;
+  font-size: 20px;
 }
 
 .form{
@@ -111,7 +111,8 @@ input {
 }
 
 .MuiButton-label{
-  font-size: 10px;
+  font-size: 25px;
+  
 }
 
 .MuiFormControl-root{
